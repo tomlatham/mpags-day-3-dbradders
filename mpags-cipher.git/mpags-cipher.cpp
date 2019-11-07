@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
   // Implement struct, and initialise values for helpRequested,
   // versionRequested and encrypt
   ProgramSettings programSettings {
-    false, false, "", "", "", CipherMode::encrypt};
+    false, false, "", "", "0", CipherMode::encrypt};
   
   // Process command line arguments
   bool cmdLineStatus { processCommandLine(cmdLineArgs, programSettings) };

@@ -1,5 +1,6 @@
 #include "CaesarCipher.hpp"
 #include "ProcessCommandLine.hpp"
+#include <iostream>
 #include <string>
 #include "CipherMode.hpp"
 
@@ -13,32 +14,28 @@ CaesarCipher::CaesarCipher(const size_t key) : key_{key}
 
 CaesarCipher::CaesarCipher(const std::string& key) : key_{0}
 {
-   bool isNumber{true};
+   bool isNumber{!key.empty()};
    for (const auto& elem : key){
       if (! std::isdigit(elem)){
       isNumber = false;
     }
-    if (isNumber = true){
+   }
+    if (isNumber == true){
       key_ = std::stoul(key);
     }
     else{
-      std::cerr << "Input for key must be a number" << std::endl;
+      std::cerr << "[error] problem converting Caesar cipher key, the key must be a positive integer" << std::endl;
     }
-   }
 }
 // Add member function to encrypt/decrypt string
-CaesarCipher::applyCipher(const std::string &inputText,
-			  const CipherMode Cipher_Mode) // Recall CipherMode enum
+std::string CaesarCipher::applyCipher(const std::string &inputText,
+			  const CipherMode Cipher_Mode) const // Recall CipherMode enum
 {
  // Create the output string
   std::string outputText {};
 
-  // Create the alphabet container
-  const std::vector<char> alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-  const size_t alphabetSize = alphabet.size();
-
   // Make sure that the key is in the range 0 - 25
-  const size_t truncatedKey { key % alphabetSize };
+  const size_t truncatedKey { key_ % alphabetSize_ };
 
   // Loop over the input text
   char processedChar {'x'};
@@ -46,9 +43,9 @@ CaesarCipher::applyCipher(const std::string &inputText,
 
     // For each character in the input text, find the corresponding position in
     // the alphabet by using an indexed loop over the alphabet container
-    for ( size_t i{0}; i < alphabetSize; ++i ) {
+    for ( size_t i{0}; i < alphabetSize_; ++i ) {
 
-      if ( origChar == alphabet[i] ) {
+      if ( origChar == alphabet_[i] ) {
 
 	// Apply the appropriate shift (depending on whether we're encrypting
 	// or decrypting) and determine the new character
@@ -56,9 +53,9 @@ CaesarCipher::applyCipher(const std::string &inputText,
 
 	// Make conditional from "encrypt" enum value of CipherMode
 	if ( Cipher_Mode == CipherMode::encrypt ) {
-	  processedChar = alphabet[ (i + truncatedKey) % alphabetSize ];
+	  processedChar = alphabet_[ (i + truncatedKey) % alphabetSize_ ];
 	} else {
-	  processedChar = alphabet[ (i + alphabetSize - truncatedKey) % alphabetSize ];
+	  processedChar = alphabet_[ (i + alphabetSize_ - truncatedKey) % alphabetSize_ ];
 	}
 	break;
       }

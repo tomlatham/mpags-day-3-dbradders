@@ -13,13 +13,13 @@ struct ProgramSettings {
 			  std::string inputFile;
 			  std::string outputFile;
 			  std::string cipher_key;
-			  const CipherMode Cipher_Mode;
+			  CipherMode Cipher_Mode;
 };
 
 //Implement as an argument in processCommandLine function
 
 bool processCommandLine(const std::vector<std::string>& args,
-			ProgramSettings programSettings
+			ProgramSettings& programSettings
                         );
 
 #endif // MPAGSCIPHER_PROCESSCOMMANDLINE_HPP 
