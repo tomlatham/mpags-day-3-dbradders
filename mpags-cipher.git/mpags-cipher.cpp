@@ -8,6 +8,7 @@
 #include "TransformChar.hpp"
 #include "ProcessCommandLine.hpp"
 #include "CaesarCipher.hpp"
+#include "CipherMode.hpp"
   
 // Main function of the mpags-cipher program
 int main(int argc, char* argv[])
@@ -18,7 +19,7 @@ int main(int argc, char* argv[])
   // Implement struct, and initialise values for helpRequested,
   // versionRequested and encrypt
   ProgramSettings programSettings {
-    false, false, "", "", "", true};
+    false, false, "", "", "", CipherMode::encrypt};
   
   // Process command line arguments
   bool cmdLineStatus { processCommandLine(cmdLineArgs, programSettings) };
@@ -90,39 +91,12 @@ int main(int argc, char* argv[])
     }
   }
 
-  // We have the key as a string, but the Caesar cipher needs an unsigned long, so we first need to convert it
-  // We default to having a key of 0, i.e. no encryption, if no key was provided on the command line
-  size_t caesar_key {0};
-  if ( ! programSettings.cipher_key.empty() ) {
-    // Before doing the conversion we should check that the string contains a
-    // valid positive integer.
-    // Here we do that by looping through each character and checking that it
-    // is a digit. What is rather hard to check is whether the number is too
-    // large to be represented by an unsigned long, so we've omitted that for
-    // the time being.
-    // (Since the conversion function std::stoul will throw an exception if the
-    // string does not represent a valid unsigned long, we could check for and
-    // handled that instead but we only cover exceptions very briefly on the
-    // final day of this course - they are a very complex area of C++ that
-    // could take an entire course on their own!)
-    for ( const auto& elem : programSettings.cipher_key ) {
-      if ( ! std::isdigit(elem) ) {
-	std::cerr << "[error] cipher key must be an unsigned long integer for Caesar cipher,\n"
-	          << "        the supplied key (" << programSettings.cipher_key << ") could not be successfully converted" << std::endl;
-	return 1;
-      }
-    }
-    caesar_key = std::stoul(programSettings.cipher_key);
-  }
-
-  // Run the Caesar cipher (using the specified key and encrypt/decrypt flag) on the input text
-
   // Declare variable "Caesar_Cipher" from CaesarCipher class
   CaesarCipher Caesar_Cipher {programSettings.cipher_key};
   
   // Make call to applyCipher from CaesarCipher class
   std::string outputText { Caesar_Cipher.applyCipher( inputText,
-					    programSettings.encrypt ) };
+					    programSettings.Cipher_Mode ) };
 
   // Output the transliterated text
   if (!programSettings.outputFile.empty()) {

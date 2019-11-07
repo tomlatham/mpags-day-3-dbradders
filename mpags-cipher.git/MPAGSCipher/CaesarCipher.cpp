@@ -1,6 +1,7 @@
 #include "CaesarCipher.hpp"
 #include "ProcessCommandLine.hpp"
 #include <string>
+#include "CipherMode.hpp"
 
 //initialise variables
 
@@ -27,7 +28,7 @@ CaesarCipher::CaesarCipher(const std::string& key) : key_{0}
 }
 // Add member function to encrypt/decrypt string
 CaesarCipher::applyCipher(const std::string &inputText,
-			  const bool programSettings.encrypt)
+			  const CipherMode Cipher_Mode) // Recall CipherMode enum
 {
  // Create the output string
   std::string outputText {};
@@ -52,7 +53,9 @@ CaesarCipher::applyCipher(const std::string &inputText,
 	// Apply the appropriate shift (depending on whether we're encrypting
 	// or decrypting) and determine the new character
 	// Can then break out of the loop over the alphabet
-	if ( encrypt ) {
+
+	// Make conditional from "encrypt" enum value of CipherMode
+	if ( Cipher_Mode == CipherMode::encrypt ) {
 	  processedChar = alphabet[ (i + truncatedKey) % alphabetSize ];
 	} else {
 	  processedChar = alphabet[ (i + alphabetSize - truncatedKey) % alphabetSize ];

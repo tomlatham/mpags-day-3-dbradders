@@ -7,8 +7,8 @@
 // Create new struct to hold command line information
 
 struct ProgramSettings {
-                          bool& helpRequested;
-			  bool& versionRequested;
+                          bool helpRequested;
+			  bool versionRequested;
 			  std::string inputFile;
 			  std::string outputFile;
 			  std::string cipher_key;

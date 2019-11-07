@@ -2,8 +2,8 @@
 #define MPAGSCIPHER_CIPHERMODE_HPP
 
 enum class CipherMode {
-  Encrypt,
-  Decrypt
+  encrypt,
+  decrypt
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "CipherMode.hpp"
 
 class CaesarCipher {
 public:
@@ -13,7 +14,7 @@ public:
   size_t key_;
 
   // Include function applyCipher
-  std::string applyCipher(const std::string& key);
+  std::string applyCipher(const std::string& key, const CipherMode Cipher_Mode);
 
   // Make alphabet and alphabet size private members
 private:

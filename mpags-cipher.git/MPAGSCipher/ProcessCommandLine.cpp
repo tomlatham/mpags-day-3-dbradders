@@ -1,6 +1,7 @@
 // Standard Library includes
 #include <iostream>
 #include <vector>
+#include "CipherMode.hpp"
 
 // Our project headers
 #include "ProcessCommandLine.hpp"
@@ -79,10 +80,10 @@ bool processCommandLine(const std::vector<std::string>& args,
       }
     }
     else if ( args[i] == "--encrypt" ) {
-            programSettings.encrypt = true;
+      programSettings.Cipher_Mode = CipherMode::encrypt;
     }
     else if ( args[i] == "--decrypt" ) {
-            programSettings.encrypt = false;
+      programSettings.Cipher_Mode = CipherMode::decrypt;
     }
     else {
       // Have encoutered an unknown flag, output an error message, set the flag
