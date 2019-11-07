@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "CipherMode.hpp"
 
 // Create new struct to hold command line information
 
@@ -12,7 +13,7 @@ struct ProgramSettings {
 			  std::string inputFile;
 			  std::string outputFile;
 			  std::string cipher_key;
-			  bool encrypt;
+			  const CipherMode Cipher_Mode;
 };
 
 //Implement as an argument in processCommandLine function
