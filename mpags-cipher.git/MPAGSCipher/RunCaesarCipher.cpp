@@ -5,13 +5,9 @@
 
 // Our project headers
 #include "RunCaesarCipher.hpp"
-#include "CaesarCipher.hpp"
 
 std::string runCaesarCipher( const std::string& inputText, const size_t key, const bool encrypt )
 {
-  // Calls constructor Caesarcipher
-  CaesarCipher key{};
-
   // Create the output string
   std::string outputText {};
 

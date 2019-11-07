@@ -8,7 +8,7 @@
 //Can now declare processCommandLine containing a struct as an argument
 
 bool processCommandLine(const std::vector<std::string>& args,
-                        ProgramSettings& programSettings)
+                        ProgramSettings programSettings)
 {
   // Status flag to indicate whether or not the parsing was successful
   bool processStatus(true);
